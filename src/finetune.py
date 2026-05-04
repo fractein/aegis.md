@@ -15,7 +15,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DATASET_PATH = os.path.join(BASE_DIR, "data", "test_dataset.csv")
 # xlm-roberta-large: 560M параметров, лучше для большого датасета
 BASE_MODEL = "xlm-roberta-large"
-SAVE_PATH = os.path.join(BASE_DIR, "models", "sms-shield-finetuned")
+SAVE_PATH = os.path.join(BASE_DIR, "models", "aegis-finetuned")
 EPOCHS = 25
 BATCH_SIZE = 8
 LR = 1e-5

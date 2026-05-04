@@ -22,7 +22,7 @@ CORS(app)
 print("=" * 50)
 print("Загрузка AI-модели...")
 print("=" * 50)
-MODEL_PATH = os.path.join(BASE_DIR, "models", "sms-shield-finetuned")
+MODEL_PATH = os.path.join(BASE_DIR, "models", "aegis-finetuned")
 classifier = pipeline(
     "text-classification",
     model=MODEL_PATH,

@@ -24,11 +24,11 @@ Un detector în timp real care analizează textul SMS-ului și returnează:
 
 | Componentă | Tehnologie |
 |---|---|
-| Model AI | `xlm-roberta-base` (fine-tuned pe date moldovenești) |
+| Model AI | `xlm-roberta-large` (fine-tuned pe date moldovenești) |
 | Framework web | Flask 3.1 |
 | Procesare text | Transformers 5.7, PyTorch 2.11 (CUDA) |
 | Frontend | HTML/CSS/JS — fără dependențe externe |
-| Date antrenament | 120+ SMS-uri reale și sintetice (RO + RU) |
+| Date antrenament | 1000 SMS-uri reale și sintetice (RO + RU) |
 
 ## Rezultate teste
 
@@ -39,7 +39,7 @@ Un detector în timp real care analizează textul SMS-ului și returnează:
 | Precision (scam) | **63.6%** → îmbunătățit după antrenare |
 | Recall (scam) | **82.4%** |
 
-> Modelul a fost antrenat pe GPU NVIDIA RTX 5070 Ti în ~15 minute pe un dataset de 120+ exemple specifice Republicii Moldova.
+> Modelul a fost antrenat pe GPU NVIDIA RTX 5070 Ti pe un dataset de 1000 exemple specifice Republicii Moldova generate automat din șabloane (`src/generate_dataset.py`).
 
 ## Cum se rulează local
 
@@ -92,13 +92,14 @@ aegis-md/
 │   ├── app.py                  # Server Flask + logica de detectare
 │   ├── finetune.py             # Script de antrenare pe GPU
 │   ├── evaluate.py             # Evaluarea preciziei modelului
+│   ├── generate_dataset.py     # Generator de date sintetice (1000 SMS)
 │   └── templates/
 │       └── index.html          # Interfața web (dark UI)
 ├── data/
-│   ├── test_dataset.csv        # 120+ SMS-uri etichetate (RO + RU)
+│   ├── test_dataset.csv        # 1000 SMS-uri etichetate (RO + RU)
 │   └── evaluation_results.csv
 ├── models/                     # Exclus din Git (500 MB)
-│   └── sms-shield-finetuned/   # xlm-roberta-base fine-tuned
+│   └── aegis-finetuned/        # xlm-roberta-large fine-tuned
 ├── notebooks/
 │   └── explorare_date.ipynb    # Analiza distribuției datelor
 ├── docs/
@@ -111,7 +112,7 @@ aegis-md/
 
 Pattern-urile de fraudă sunt bazate pe:
 - Avertismentele oficiale ale **Poliției Republicii Moldova** (politia.md)
-- Cazuri publicate pe **Kișinău în Temă** (Telegram)
+- Cazuri publicate pe **Chisinau în Temă** (Telegram)
 - Articole din **Moldova.org**, **Ziarul de Gardă** despre fraude SMS
 - Schema frecventă de impersonare a băncilor (MAIB, Victoriabank, MICB)
 

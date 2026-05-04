@@ -35,7 +35,7 @@ SMS introdus de utilizator
 | `src/evaluate.py` | Evaluarea preciziei modelului (accuracy, precision, recall, F1) |
 | `src/templates/index.html` | Interfața web (HTML/CSS/JS, fără dependențe externe) |
 | `data/test_dataset.csv` | Dataset: 120+ SMS etichetate (scam/safe, RO/RU) |
-| `models/sms-shield-finetuned/` | Modelul antrenat local (exclus din Git — 500 MB) |
+| `models/aegis-finetuned/` | Modelul antrenat local (exclus din Git — ~2 GB) |
 
 ## Stack tehnic
 
