@@ -76,7 +76,7 @@ python finetune.py
 
 ### 5. Porniți serverul
 ```bash
-python app.py
+python src/app.py
 ```
 
 ### 6. Deschideți aplicația
@@ -88,17 +88,23 @@ http://127.0.0.1:5000
 
 ```
 aegis-md/
-├── app.py                  # Server Flask + logica de detectare
-├── finetune.py             # Script de antrenare a modelului
-├── evaluate.py             # Evaluarea preciziei modelului
-├── requirements.txt
-├── templates/
-│   └── index.html          # Interfața web
+├── src/                        # Codul sursă al aplicației
+│   ├── app.py                  # Server Flask + logica de detectare
+│   ├── finetune.py             # Script de antrenare pe GPU
+│   ├── evaluate.py             # Evaluarea preciziei modelului
+│   └── templates/
+│       └── index.html          # Interfața web (dark UI)
 ├── data/
-│   ├── test_dataset.csv    # 120+ SMS-uri etichetate
+│   ├── test_dataset.csv        # 120+ SMS-uri etichetate (RO + RU)
 │   └── evaluation_results.csv
-└── models/
-    └── sms-shield-finetuned/   # Modelul antrenat local
+├── models/                     # Exclus din Git (500 MB)
+│   └── sms-shield-finetuned/   # xlm-roberta-base fine-tuned
+├── notebooks/
+│   └── explorare_date.ipynb    # Analiza distribuției datelor
+├── docs/
+│   └── arhitectura.md          # Diagrama arhitecturii
+├── requirements.txt
+└── README.md
 ```
 
 ## Surse de date
@@ -111,10 +117,9 @@ Pattern-urile de fraudă sunt bazate pe:
 
 ## Echipa
 
-| Nume | Rol |
-|---|---|
-| — | Developer |
-| — | Colaborator |
+| Nume |
+|Bondarenco Alexandru|
+|Isipchiuc Alexandr|
 
 > Proiect realizat pentru **ONIA 2026** — Olimpiada Națională de Informatică și Aplicații.
 

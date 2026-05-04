@@ -10,4 +10,12 @@ models/
 data/server_log.txt
 data/training_log.txt
 quick_test.py
+final_check.py
 *.log
+# Старые файлы в корне (перенесены в /src)
+/app.py
+/finetune.py
+/evaluate.py
+/templates/
+/test.py
+/test_results.md
