@@ -1,0 +1,36 @@
+text,language,expected,predicted,raw_verdict,confidence,correct
+Поздравляем! Вы выиграли 10000 лей. Перейдите по ссылке для получения приза: bit.ly/win-prize,ru,scam,scam,scam,0.505,True
+Ваша карта MAIB заблокирована. Срочно перейдите по ссылке для разблокировки: maib-secure.ml/unblock,ru,scam,scam,suspicious,0.579,True
+Вы выиграли iPhone 15! Для получения перейдите по ссылке: tinyurl.com/iphone15,ru,scam,scam,suspicious,0.617,True
+Ваш банковский счёт заморожен. Введите код подтверждения на сайте: micb-verify.xyz/code,ru,scam,scam,scam,0.718,True
+Срочно! Ваш пароль был скомпрометирован. Перейдите для подтверждения: secure-moldova.tk/verify,ru,scam,scam,scam,0.967,True
+Вы стали победителем розыгрыша от Orange Moldova! Приз: 5000 лей. Ссылка: bit.ly/orange-win,ru,scam,scam,scam,0.557,True
+Посылка задержана на таможне. Оплатите 50 лей для получения: cutt.ly/delivery,ru,scam,safe,safe,0.79,False
+Victoriabank: Ваша карта заблокирована из-за подозрительной активности. Подтвердите: vbank-secure.ru/ok,ru,scam,scam,suspicious,0.598,True
+Привет! Как дела? Давай встретимся в субботу вечером,ru,safe,scam,scam,0.529,False
+Ваш заказ #4521 доставлен. Спасибо за покупку в нашем магазине!,ru,safe,safe,safe,0.963,True
+"Мама, я уже еду домой, буду через 20 минут",ru,safe,scam,scam,0.506,False
+Напоминание: запись к врачу завтра в 14:00. Клиника Medpark.,ru,safe,safe,safe,0.501,True
+MAIB: Списание 250 MDL. Остаток: 3200 MDL. 03.05.2026 14:32,ru,safe,scam,scam,0.517,False
+"Привет! Не забудь взять документы, они на столе",ru,safe,safe,safe,0.852,True
+Ваш код подтверждения: 847291. Никому не сообщайте его.,ru,safe,safe,safe,0.744,True
+Встреча перенесена на пятницу в 10 утра. Подтверди получение.,ru,safe,safe,safe,0.697,True
+Felicitări! Ai câștigat un premiu de 5000 lei. Accesează urgent: tinyurl.com/premiu-ro,ro,scam,scam,scam,0.709,True
+Cardul dvs. MAIB a fost blocat. Pentru deblocare accesați: maib-ro.ml/deblocare,ro,scam,scam,scam,0.587,True
+Ați câștigat un iPhone! Intrați pe link pentru a ridica premiul: bit.ly/castig-ro,ro,scam,scam,scam,0.663,True
+MICB: Contul dvs. a fost suspendat. Verificați identitatea: micb-secure.xyz/verify,ro,scam,scam,scam,0.556,True
+Urgent! Parola dvs. a fost compromisă. Confirmați accesul: moldovabank-secure.tk,ro,scam,scam,scam,0.976,True
+Orange Moldova: Ați câștigat 3000 lei! Accesați premiul: cutt.ly/orange-castig,ro,scam,scam,scam,0.597,True
+Coletul dvs. este reținut la vamă. Achitați 75 lei: is.gd/colet-md,ro,scam,safe,safe,0.742,False
+Victoriabank: Cardul blocat din cauza activității suspecte. Confirmați: vbank.ru/confirmare,ro,scam,scam,scam,0.721,True
+"Salut! Ce mai faci? Ne vedem mâine la ora 18, ok?",ro,safe,scam,scam,0.527,False
+Comanda #7823 a fost livrată cu succes. Vă mulțumim!,ro,safe,safe,safe,0.647,True
+"Mama, am ajuns bine acasă. Noapte bună!",ro,safe,scam,scam,0.51,False
+Reminder: programare la medic joi la 15:30. Clinica Medpark.,ro,safe,scam,scam,0.567,False
+MAIB: Tranzacție 300 MDL. Sold: 2800 MDL. 03.05.2026 16:10,ro,safe,scam,scam,0.543,False
+Bună ziua! Ședința de mâine se mută la ora 11. Confirmați participarea.,ro,safe,safe,safe,0.821,True
+Codul dvs. de confirmare este: 392847. Nu îl comunicați nimănui.,ro,safe,safe,safe,0.704,True
+"Salut! Documentele sunt pe birou, nu uita să le iei.",ro,safe,safe,safe,0.975,True
+Молдтелеком: Ваш баланс пополнен на 100 лей. Остаток: 350 лей.,ru,safe,safe,safe,0.807,True
+Получите кредит без справок! Одобрение за 5 минут: bit.ly/credit-md,ru,scam,safe,safe,0.696,False
+BNM avertizează: site-ul bnm-verificare.com este FALS. Nu introduceți date personale!,ro,safe,scam,scam,0.905,False

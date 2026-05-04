@@ -1,0 +1,13 @@
+﻿venv/
+__pycache__/
+*.pyc
+*.pyo
+requests.log
+.vscode/
+.idea/
+.env
+models/
+data/server_log.txt
+data/training_log.txt
+quick_test.py
+*.log

@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aegis.md — Detector de fraudă SMS</title>
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Arial, sans-serif;
+            background: #0a0a0f;
+            color: #e8e8f0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* ── HEADER ── */
+        header {
+            width: 100%;
+            padding: 20px 40px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+            background: rgba(10,10,20,0.8);
+            backdrop-filter: blur(20px);
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        .logo-icon {
+            width: 36px;
+            height: 36px;
+            background: linear-gradient(135deg, #6e40f5, #a855f7);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            flex-shrink: 0;
+        }
+
+        .logo-text {
+            font-size: 20px;
+            font-weight: 700;
+            background: linear-gradient(90deg, #a78bfa, #e879f9);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .logo-badge {
+            font-size: 11px;
+            background: rgba(110,64,245,0.2);
+            border: 1px solid rgba(110,64,245,0.4);
+            color: #a78bfa;
+            padding: 2px 8px;
+            border-radius: 20px;
+            font-weight: 500;
+        }
+
+        /* ── MAIN ── */
+        main {
+            width: 100%;
+            max-width: 680px;
+            padding: 48px 24px 80px;
+        }
+
+        .hero {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .hero h1 {
+            font-size: 36px;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 12px;
+            background: linear-gradient(135deg, #ffffff 0%, #a78bfa 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: 15px;
+            color: #6b6b80;
+            line-height: 1.6;
+        }
+
+        /* ── CARD ── */
+        .card {
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 20px;
+            padding: 28px;
+            margin-bottom: 16px;
+            transition: border-color 0.2s;
+        }
+
+        .card:focus-within {
+            border-color: rgba(110,64,245,0.5);
+        }
+
+        .card-label {
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: #6b6b80;
+            margin-bottom: 12px;
+        }
+
+        textarea {
+            width: 100%;
+            min-height: 130px;
+            background: transparent;
+            border: none;
+            outline: none;
+            font-size: 15px;
+            color: #e8e8f0;
+            font-family: inherit;
+            resize: vertical;
+            line-height: 1.6;
+        }
+
+        textarea::placeholder { color: #3a3a50; }
+
+        .input-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 16px;
+            padding-top: 16px;
+            border-top: 1px solid rgba(255,255,255,0.06);
+        }
+
+        #charCount {
+            font-size: 12px;
+            color: #3a3a50;
+        }
+
+        .btn-check {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 11px 24px;
+            background: linear-gradient(135deg, #6e40f5, #a855f7);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: opacity 0.2s, transform 0.1s;
+        }
+
+        .btn-check:hover { opacity: 0.9; transform: translateY(-1px); }
+        .btn-check:active { transform: translateY(0); }
+        .btn-check:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
+
+        /* ── SPINNER ── */
+        .spinner {
+            width: 14px;
+            height: 14px;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-top-color: white;
+            border-radius: 50%;
+            animation: spin 0.7s linear infinite;
+            display: none;
+        }
+
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        /* ── RESULT ── */
+        #result { margin-bottom: 16px; }
+
+        .result-card {
+            border-radius: 20px;
+            padding: 24px 28px;
+            border: 1px solid transparent;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        .result-card.scam {
+            background: rgba(239,68,68,0.08);
+            border-color: rgba(239,68,68,0.25);
+        }
+
+        .result-card.suspicious {
+            background: rgba(245,158,11,0.08);
+            border-color: rgba(245,158,11,0.25);
+        }
+
+        .result-card.safe {
+            background: rgba(34,197,94,0.08);
+            border-color: rgba(34,197,94,0.25);
+        }
+
+        .result-header {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 16px;
+        }
+
+        .result-icon {
+            font-size: 32px;
+            line-height: 1;
+        }
+
+        .result-title {
+            font-size: 22px;
+            font-weight: 800;
+        }
+
+        .result-card.scam .result-title { color: #f87171; }
+        .result-card.suspicious .result-title { color: #fbbf24; }
+        .result-card.safe .result-title { color: #4ade80; }
+
+        .result-subtitle {
+            font-size: 13px;
+            color: #6b6b80;
+            margin-top: 2px;
+        }
+
+        .confidence-bar {
+            height: 4px;
+            background: rgba(255,255,255,0.08);
+            border-radius: 2px;
+            overflow: hidden;
+            margin-bottom: 16px;
+        }
+
+        .confidence-fill {
+            height: 100%;
+            border-radius: 2px;
+            transition: width 0.6s ease;
+        }
+
+        .result-card.scam .confidence-fill { background: #ef4444; }
+        .result-card.suspicious .confidence-fill { background: #f59e0b; }
+        .result-card.safe .confidence-fill { background: #22c55e; }
+
+        .confidence-label {
+            font-size: 12px;
+            color: #6b6b80;
+            margin-bottom: 16px;
+        }
+
+        .reasons-title {
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: #6b6b80;
+            margin-bottom: 10px;
+        }
+
+        .reasons-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .reasons-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+            font-size: 13px;
+            color: #b0b0c0;
+            line-height: 1.4;
+        }
+
+        .reasons-list li::before {
+            content: "›";
+            font-size: 16px;
+            line-height: 1.2;
+            flex-shrink: 0;
+            color: #6b6b80;
+        }
+
+        /* ── EXAMPLES ── */
+        .examples-card {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 20px;
+            padding: 24px 28px;
+        }
+
+        .examples-label {
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: #6b6b80;
+            margin-bottom: 14px;
+        }
+
+        .examples-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .ex-btn {
+            padding: 7px 14px;
+            font-size: 12px;
+            font-weight: 500;
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 10px;
+            background: rgba(255,255,255,0.04);
+            color: #a0a0b8;
+            cursor: pointer;
+            transition: background 0.15s, color 0.15s, border-color 0.15s;
+        }
+
+        .ex-btn:hover {
+            background: rgba(110,64,245,0.15);
+            border-color: rgba(110,64,245,0.4);
+            color: #c4b5fd;
+        }
+
+        .ex-btn.danger { border-color: rgba(239,68,68,0.2); }
+        .ex-btn.danger:hover {
+            background: rgba(239,68,68,0.1);
+            border-color: rgba(239,68,68,0.4);
+            color: #fca5a5;
+        }
+
+        .ex-btn.safe-btn { border-color: rgba(34,197,94,0.2); }
+        .ex-btn.safe-btn:hover {
+            background: rgba(34,197,94,0.1);
+            border-color: rgba(34,197,94,0.4);
+            color: #86efac;
+        }
+
+        /* ── FOOTER ── */
+        footer {
+            margin-top: auto;
+            padding: 24px;
+            text-align: center;
+            font-size: 12px;
+            color: #2a2a3a;
+        }
+
+        /* ── RESPONSIVE ── */
+        @media (max-width: 480px) {
+            header { padding: 16px 20px; }
+            main { padding: 32px 16px 60px; }
+            .hero h1 { font-size: 28px; }
+            .card, .result-card, .examples-card { padding: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="logo-icon">&#x1F6E1;&#xFE0F;</div>
+    <span class="logo-text">Aegis.md</span>
+    <span class="logo-badge">AI-powered</span>
+</header>
+
+<main>
+    <div class="hero">
+        <h1>Detector de frauda SMS</h1>
+        <p>Analiza AI pentru mesaje suspecte &mdash; rus, roman, englez.<br>
+           Detecteaza phishing, inselaciuni si fraude bancare.</p>
+    </div>
+
+    <!-- Input -->
+    <div class="card">
+        <div class="card-label">Textul SMS-ului / Текст SMS</div>
+        <textarea id="smsText"
+            placeholder="Lipeste textul SMS-ului aici... / Вставь текст SMS сюда..."
+            oninput="updateCount()"></textarea>
+        <div class="input-footer">
+            <span id="charCount">0 / 1000</span>
+            <button class="btn-check" id="checkBtn" onclick="checkSMS()">
+                <div class="spinner" id="spinner"></div>
+                <span id="btnText">&#x1F50D; Verifica / Проверить</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Result -->
+    <div id="result"></div>
+
+    <!-- Examples -->
+    <div class="examples-card">
+        <div class="examples-label">Exemple de test / Примеры для теста</div>
+        <div class="examples-grid">
+            <button class="ex-btn danger" onclick="setEx(1)">&#x26A0;&#xFE0F; Scam RO — premiu</button>
+            <button class="ex-btn danger" onclick="setEx(2)">&#x26A0;&#xFE0F; Scam RO — MAIB blocat</button>
+            <button class="ex-btn danger" onclick="setEx(3)">&#x26A0;&#xFE0F; Скам RU — выигрыш</button>
+            <button class="ex-btn danger" onclick="setEx(4)">&#x26A0;&#xFE0F; Скам RU — полиция</button>
+            <button class="ex-btn danger" onclick="setEx(5)">&#x1F3E6; Фишинг MAIB + ссылка</button>
+            <button class="ex-btn safe-btn" onclick="setEx(6)">&#x2705; Normal RO</button>
+            <button class="ex-btn safe-btn" onclick="setEx(7)">&#x2705; Норм RU</button>
+        </div>
+    </div>
+</main>
+
+<footer>Aegis.md &mdash; Proiect educativ &mdash; ONIA 2026</footer>
+
+<script>
+    const examples = {
+        1: "Felicitări! Ai câștigat un premiu de 5000 lei. Accesează urgent link-ul pentru ridicare: tinyurl.com/premiu-md",
+        2: "MAIB: Cardul dvs. a fost blocat din cauza activității suspecte. Accesați pentru deblocare: maib-secure.ml/deblocare",
+        3: "Поздравляем! Вы выиграли 10000 лей в розыгрыше. Перейдите по ссылке для получения: bit.ly/win-prize",
+        4: "Сотрудник полиции: На ваше имя оформлен кредит мошенниками. Для защиты средств срочно переведите деньги на безопасный счёт.",
+        5: "MAIB: Cardul dvs. Visa a fost suspendat. Verificați identitatea pe: maib-ro.ml/verify?card=4521",
+        6: "Salut! Ce mai faci? Ne vedem mâine la ora 18, confirmă te rog.",
+        7: "MAIB: Списание 350 MDL. Остаток: 4200 MDL. 04.05.2026 09:17",
+    };
+
+    function setEx(n) {
+        const ta = document.getElementById("smsText");
+        ta.value = examples[n];
+        updateCount();
+        ta.focus();
+    }
+
+    function updateCount() {
+        const len = document.getElementById("smsText").value.length;
+        const el = document.getElementById("charCount");
+        el.textContent = `${len} / 1000`;
+        el.style.color = len > 900 ? "#f87171" : "#3a3a50";
+    }
+
+    const verdictMap = {
+        scam:       { icon: "&#x1F6A8;", title: "PERICOL — Fraudă / ОПАСНО", sub: "Mesaj fraudulos detectat / Мошенническое сообщение" },
+        suspicious: { icon: "&#x26A0;&#xFE0F;",  title: "Suspect / Подозрительно", sub: "Conține semnale de alarmă / Есть тревожные признаки" },
+        safe:       { icon: "&#x2705;", title: "Sigur / Безопасно",  sub: "Nu au fost detectate amenințări / Угроз не обнаружено" },
+    };
+
+    async function checkSMS() {
+        const text = document.getElementById("smsText").value.trim();
+        const resultDiv = document.getElementById("result");
+        const btn = document.getElementById("checkBtn");
+        const spinner = document.getElementById("spinner");
+        const btnText = document.getElementById("btnText");
+
+        if (!text) {
+            showError("Введи текст SMS / Introduceți textul SMS-ului");
+            return;
+        }
+        if (text.length > 1000) {
+            showError("Текст слишком длинный (максимум 1000 символов)");
+            return;
+        }
+
+        btn.disabled = true;
+        spinner.style.display = "block";
+        btnText.textContent = "Analizăm...";
+        resultDiv.innerHTML = "";
+
+        try {
+            const resp = await fetch("/api/check", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ text }),
+            });
+            const data = await resp.json();
+
+            if (data.error) { showError(data.error); return; }
+
+            const v = verdictMap[data.verdict] || verdictMap.safe;
+            const pct = Math.round(data.confidence * 100);
+
+            const reasonsHTML = data.reasons.length > 0
+                ? `<div class="reasons-title">Motive / Причины</div>
+                   <ul class="reasons-list">${data.reasons.map(r => `<li>${r}</li>`).join("")}</ul>`
+                : `<div style="font-size:13px;color:#6b6b80;">Niciun semnal de alarmă detectat / Тревожных признаков не найдено</div>`;
+
+            resultDiv.innerHTML = `
+                <div class="result-card ${data.verdict}">
+                    <div class="result-header">
+                        <div class="result-icon">${v.icon}</div>
+                        <div>
+                            <div class="result-title">${v.title}</div>
+                            <div class="result-subtitle">${v.sub}</div>
+                        </div>
+                    </div>
+                    <div class="confidence-bar">
+                        <div class="confidence-fill" style="width:${pct}%"></div>
+                    </div>
+                    <div class="confidence-label">Încrederea modelului AI: <strong>${pct}%</strong></div>
+                    ${reasonsHTML}
+                </div>`;
+        } catch (err) {
+            showError("Eroare de conexiune / Ошибка соединения: " + err.message);
+        } finally {
+            btn.disabled = false;
+            spinner.style.display = "none";
+            btnText.innerHTML = "&#x1F50D; Verifica / Проверить";
+        }
+    }
+
+    function showError(msg) {
+        document.getElementById("result").innerHTML =
+            `<div class="result-card suspicious">
+                <div class="result-header">
+                    <div class="result-icon">&#x26A0;&#xFE0F;</div>
+                    <div class="result-title" style="font-size:16px">${msg}</div>
+                </div>
+             </div>`;
+    }
+
+    document.addEventListener("keydown", e => {
+        if ((e.ctrlKey || e.metaKey) && e.key === "Enter") checkSMS();
+    });
+</script>
+</body>
+</html>
