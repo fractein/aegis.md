@@ -9,16 +9,16 @@ from transformers import AutoTokenizer, AutoModelForSequenceClassification
 from torch.optim import AdamW
 from transformers import get_linear_schedule_with_warmup
 
-sys.stdout.reconfigure(encoding="utf-8")
+sys.stdout.reconfigure(encoding="utf-8", line_buffering=True)
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DATASET_PATH = os.path.join(BASE_DIR, "data", "test_dataset.csv")
-# xlm-roberta-base: стабильная multilingual модель, идеальна для fine-tuning
-BASE_MODEL = "xlm-roberta-base"
+# xlm-roberta-large: 560M параметров, лучше для большого датасета
+BASE_MODEL = "xlm-roberta-large"
 SAVE_PATH = os.path.join(BASE_DIR, "models", "sms-shield-finetuned")
-EPOCHS = 60
+EPOCHS = 25
 BATCH_SIZE = 8
-LR = 2e-5
+LR = 1e-5
 LABEL2ID = {"safe": 0, "scam": 1}
 ID2LABEL = {0: "safe", 1: "scam"}
 
