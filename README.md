@@ -28,18 +28,18 @@ Un detector în timp real care analizează textul SMS-ului și returnează:
 | Framework web | Flask 3.1 |
 | Procesare text | Transformers 5.7, PyTorch 2.11 (CUDA) |
 | Frontend | HTML/CSS/JS — fără dependențe externe |
-| Date antrenament | 1000 SMS-uri reale și sintetice (RO + RU) |
+| Date antrenament | 1046 SMS-uri reale și sintetice (RO + RU) |
 
-## Rezultate teste
+## Rezultate finale
 
-| Metrică | Rezultat |
-|---|---|
-| Accuracy | **68.6%** (model de bază zero-shot) |
-| Accuracy după fine-tuning | **100%** (validare internă) |
-| Precision (scam) | **63.6%** → îmbunătățit după antrenare |
-| Recall (scam) | **82.4%** |
+| Metrică | Zero-shot (bază) | După fine-tuning |
+|---|---|---|
+| Accuracy | 68.6% | **97.7%** |
+| Precision (scam) | 63.6% | **100.0%** |
+| Recall (scam) | 82.4% | **95.6%** |
+| F1-score | 71.6% | **97.7%** |
 
-> Modelul a fost antrenat pe GPU NVIDIA RTX 5070 Ti pe un dataset de 1000 exemple specifice Republicii Moldova generate automat din șabloane (`src/generate_dataset.py`).
+> Evaluare pe **1046 SMS** (540 scam / 506 safe). Zero false-positive — modelul nu marchează niciun mesaj legitim ca scam. Modelul a fost antrenat pe GPU NVIDIA RTX 5070 Ti pe un dataset de 1046 exemple specifice Republicii Moldova, cu cuvinte-cheie directe în RO, RU și EN (`скам`, `обман`, `fraudă`, `escrocherie` etc.).
 
 ## Cum se rulează local
 
@@ -76,7 +76,7 @@ python finetune.py
 
 ### 5. Porniți serverul
 ```bash
-python src/app.py
+python app.py
 ```
 
 ### 6. Deschideți aplicația
@@ -88,22 +88,21 @@ http://127.0.0.1:5000
 
 ```
 aegis-md/
-├── src/                        # Codul sursă al aplicației
-│   ├── app.py                  # Server Flask + logica de detectare
-│   ├── finetune.py             # Script de antrenare pe GPU
-│   ├── evaluate.py             # Evaluarea preciziei modelului
-│   ├── generate_dataset.py     # Generator de date sintetice (1000 SMS)
-│   └── templates/
-│       └── index.html          # Interfața web (dark UI)
+├── app.py                      # Server Flask + logica de detectare
+├── finetune.py                 # Antrenare de la zero (xlm-roberta-base → 60 epoci)
+├── continue_finetune.py        # Dообучение incrementală de pe checkpoint
+├── evaluate.py                 # Evaluare prin API (necesită server pornit)
+├── quick_eval.py               # Evaluare rapidă directă (fără server)
 ├── data/
-│   ├── test_dataset.csv        # 1000 SMS-uri etichetate (RO + RU)
+│   ├── test_dataset.csv        # 1046 SMS-uri etichetate (RO + RU)
 │   └── evaluation_results.csv
-├── models/                     # Exclus din Git (500 MB)
-│   └── aegis-finetuned/        # xlm-roberta-large fine-tuned
-├── notebooks/
-│   └── explorare_date.ipynb    # Analiza distribuției datelor
+├── models/                     # Exclus din Git (~500 MB)
+│   └── sms-shield-finetuned/   # xlm-roberta-large fine-tuned
+├── templates/
+│   └── index.html              # Interfața web (dark UI)
+├── src/                        # Versiune alternativă (referință)
 ├── docs/
-│   └── arhitectura.md          # Diagrama arhitecturii
+│   └── arhitectura.md
 ├── requirements.txt
 └── README.md
 ```

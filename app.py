@@ -86,6 +86,86 @@ SUSPICIOUS_KEYWORDS = {
     "won": "Suspicious: 'won'",
     "claim": "Suspicious: 'claim'",
     "free": "Suspicious: 'free' offer",
+    # Прямые упоминания мошенничества (слова-маркеры)
+    "скам": "Прямое упоминание 'скам' — явный признак мошенничества",
+    "scam": "Прямое упоминание 'scam' — явный признак мошенничества",
+    "обман": "Прямое упоминание 'обман' — мошенническое сообщение",
+    "развод": "Прямое упоминание 'развод' — мошенническая схема",
+    "лохотрон": "Прямое упоминание 'лохотрон' — мошенничество",
+    "мошенник": "Прямое упоминание 'мошенник' — мошенничество",
+    "мошенники": "Прямое упоминание 'мошенники' — мошенничество",
+    "мошенничество": "Прямое упоминание 'мошенничество'",
+    "афера": "Прямое упоминание 'афера' — мошенническая схема",
+    "фишинг": "Прямое упоминание 'фишинг' — фишинговая атака",
+    "fraudă": "Mențiune directă 'fraudă' — semn evident de înșelăciune",
+    "frauda": "Mențiune directă 'frauda' — semn evident de înșelăciune",
+    "fraude": "Mențiune directă 'fraude' — schemă de înșelăciune",
+    "înșelăciune": "Mențiune directă 'înșelăciune' — escrocherie",
+    "inselaciune": "Mențiune directă 'inselaciune' — escrocherie",
+    "escrocherie": "Mențiune directă 'escrocherie' — fraudă",
+    "escroc": "Mențiune directă 'escroc' — escroc",
+    "phishing": "Mențiune directă 'phishing' — atac de tip phishing",
+    "țeapă": "Mențiune directă 'țeapă' — schemă frauduloasă",
+    "teapa": "Mențiune directă 'teapa' — schemă frauduloasă",
+    # Схемы «возврата денег» / recovery scam (RU)
+    "вас обманули": "Мошенничество: 'вас обманули' — схема возврата денег жертвам",
+    "вы были обмануты": "Мошенничество: схема повторного обмана жертв",
+    "обманули": "Подозрительно: 'обманули' — возможная recovery-схема",
+    "вернём деньги": "Мошенничество: 'вернём деньги' — повторный обман жертв",
+    "компенсация за мошенничество": "Мошенничество: обещание компенсации — типичная recovery-схема",
+    "помогаем жертвам": "Подозрительно: 'помогаем жертвам' мошенничества за плату",
+    "возврат средств": "Подозрительно: 'возврат средств' с требованием предоплаты",
+    "recuperăm banii": "Fraudă: 'recuperăm banii' — schema de înșelăciune secundară",
+    "ați fost înșelat": "Fraudă: 'ați fost înșelat' — recovery scam",
+    "compensație": "Suspect: 'compensație' — poate fi fraudă secundară",
+    # Эротические услуги / эксплуатация (RU)
+    "интим услуги": "Опасно: предложение интим-услуг через SMS",
+    "интим-услуги": "Опасно: предложение интим-услуг через SMS",
+    "эскорт": "Опасно: предложение эскорт-услуг",
+    "досуг для взрослых": "Опасно: реклама услуг для взрослых",
+    "съёмки для взрослых": "Опасно: вербовка для съёмок контента для взрослых",
+    "работа для девушек": "Опасно: подозрительная 'работа для девушек' — риск эксплуатации",
+    "подработка для девушек": "Опасно: 'подработка для девушек' — схема вербовки",
+    "без опыта от 1000": "Подозрительно: нереалистичная подработка без опыта",
+    "клуб ищет девушек": "Опасно: вербовка через SMS — риск эксплуатации",
+    "модельный бизнес": "Подозрительно: 'модельный бизнес' через SMS — схема вербовки",
+    "фотосессия оплата": "Подозрительно: предложение платной фотосессии через SMS",
+    # Эротические услуги / эксплуатация (RO)
+    "servicii intime": "Pericol: ofertă de servicii intime prin SMS",
+    "escortă": "Pericol: ofertă de servicii escortă",
+    "escorta": "Pericol: ofertă de servicii escortă",
+    "agrement adulti": "Pericol: publicitate servicii pentru adulți",
+    "agrement adulți": "Pericol: publicitate servicii pentru adulți",
+    "filmari adulti": "Pericol: recrutare pentru conținut pentru adulți",
+    "lucru pentru fete": "Pericol: 'lucru pentru fete' — risc de exploatare",
+    "castiguri rapide fete": "Pericol: recrutare suspectă prin SMS",
+    "câștiguri rapide fete": "Pericol: recrutare suspectă prin SMS",
+    "club cauta fete": "Pericol: recrutare prin SMS — risc de exploatare",
+    "afaceri modelling": "Suspect: 'modelling' prin SMS — posibilă schemă de recrutare",
+    # Схемы «возврата денег» / recovery scam (RO)
+    "ati fost inselat": "Fraudă: 'ați fost înșelat' — recovery scam",
+    "recuperam banii": "Fraudă: 'recuperăm banii' — schema de înșelăciune secundară",
+    "compensatie": "Suspect: 'compensatie' — poate fi fraudă secundară",
+}
+
+# Ключевые слова высокого риска — suspicious при ОДНОМ совпадении
+HIGH_RISK_KEYWORDS = {
+    "интим услуги", "интим-услуги", "эскорт", "досуг для взрослых",
+    "съёмки для взрослых", "работа для девушек", "подработка для девушек",
+    "клуб ищет девушек", "servicii intime", "escortă", "escorta",
+    "agrement adulti", "agrement adulți", "filmari adulti", "filmări adulți",
+    "lucru pentru fete", "club cauta fete", "castiguri rapide fete",
+    "câștiguri rapide fete", "вас обманули", "вы были обмануты",
+    "компенсация за мошенничество", "вернём деньги",
+    "ati fost inselat", "recuperam banii",
+}
+
+# Слова-маркеры мошенничества — сразу scam при ОДНОМ совпадении
+DIRECT_SCAM_KEYWORDS = {
+    "скам", "scam", "обман", "развод", "лохотрон",
+    "мошенник", "мошенники", "мошенничество", "афера", "фишинг",
+    "fraudă", "frauda", "fraude", "înșelăciune", "inselaciune",
+    "escrocherie", "escroc", "phishing", "țeapă", "teapa",
 }
 
 LOCAL_BRANDS = [
@@ -164,8 +244,23 @@ def check_sms():
 
         reasons = find_reasons(text)
 
-        if len(reasons) >= 2 and not is_scam:
+        text_lower = text.lower()
+        has_direct_scam = any(kw in text_lower for kw in DIRECT_SCAM_KEYWORDS)
+        has_high_risk = any(kw in text_lower for kw in HIGH_RISK_KEYWORDS)
+
+        # Слова-маркеры мошенничества имеют наивысший приоритет
+        if has_direct_scam:
+            verdict = "scam"
+            # Уверенность правил высокая, но не абсолютная (модель могла видеть контекст)
+            confidence = max(confidence, 0.95) if is_scam else 0.92
+        elif has_high_risk and not is_scam:
             verdict = "suspicious"
+            confidence = max(0.75, 1.0 - confidence)
+        elif len(reasons) >= 2 and not is_scam:
+            verdict = "suspicious"
+            # Чем больше совпадений правил, тем выше уверенность в подозрительности
+            rule_score = min(0.6 + 0.08 * len(reasons), 0.9)
+            confidence = max(rule_score, 1.0 - confidence)
 
         response = {
             "verdict": verdict,

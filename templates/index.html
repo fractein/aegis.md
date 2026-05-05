@@ -345,6 +345,133 @@
             color: #86efac;
         }
 
+        /* ── AWARENESS SECTION ── */
+        .section-title {
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: #6b6b80;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-title::after {
+            content: "";
+            flex: 1;
+            height: 1px;
+            background: rgba(255,255,255,0.06);
+        }
+
+        .fraud-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 16px;
+        }
+
+        .fraud-card {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 14px;
+            padding: 16px;
+            transition: border-color 0.2s, background 0.2s;
+        }
+
+        .fraud-card:hover {
+            background: rgba(255,255,255,0.05);
+            border-color: rgba(110,64,245,0.25);
+        }
+
+        .fraud-card-icon {
+            font-size: 22px;
+            margin-bottom: 8px;
+            line-height: 1;
+        }
+
+        .fraud-card-title {
+            font-size: 13px;
+            font-weight: 700;
+            color: #d0d0e0;
+            margin-bottom: 4px;
+        }
+
+        .fraud-card-desc {
+            font-size: 12px;
+            color: #5a5a70;
+            line-height: 1.5;
+        }
+
+        .protect-card {
+            background: rgba(110,64,245,0.06);
+            border: 1px solid rgba(110,64,245,0.15);
+            border-radius: 20px;
+            padding: 24px 28px;
+            margin-bottom: 16px;
+        }
+
+        .protect-steps {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: 4px;
+        }
+
+        .protect-step {
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+        }
+
+        .step-num {
+            width: 26px;
+            height: 26px;
+            border-radius: 8px;
+            background: linear-gradient(135deg, #6e40f5, #a855f7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 700;
+            color: white;
+            flex-shrink: 0;
+            margin-top: 1px;
+        }
+
+        .step-text {
+            font-size: 13px;
+            color: #a0a0b8;
+            line-height: 1.5;
+        }
+
+        .step-text strong {
+            color: #d0d0e0;
+            font-weight: 600;
+        }
+
+        .hotline-card {
+            background: rgba(239,68,68,0.05);
+            border: 1px solid rgba(239,68,68,0.15);
+            border-radius: 14px;
+            padding: 16px 20px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 16px;
+        }
+
+        .hotline-icon { font-size: 24px; flex-shrink: 0; }
+
+        .hotline-text { font-size: 13px; color: #a0a0b8; line-height: 1.5; }
+        .hotline-text strong { color: #f87171; font-size: 15px; display: block; }
+
+        @media (max-width: 480px) {
+            .fraud-grid { grid-template-columns: 1fr; }
+            .protect-card { padding: 20px; }
+        }
+
         /* ── FOOTER ── */
         footer {
             margin-top: auto;
@@ -408,6 +535,78 @@
             <button class="ex-btn safe-btn" onclick="setEx(6)">&#x2705; Normal RO</button>
             <button class="ex-btn safe-btn" onclick="setEx(7)">&#x2705; Норм RU</button>
         </div>
+    </div>
+    <!-- ── FRAUD AWARENESS ── -->
+    <div style="margin-top: 48px;">
+
+        <div class="section-title">&#x26A0;&#xFE0F;&nbsp; Tipuri de fraude / Виды мошенничества</div>
+
+        <div class="fraud-grid">
+            <div class="fraud-card">
+                <div class="fraud-card-icon">&#x1F3E6;</div>
+                <div class="fraud-card-title">Phishing bancar / Банковский фишинг</div>
+                <div class="fraud-card-desc">SMS fals de la MAIB, Victoriabank, MICB cu link de "deblocare" a cardului. Banca nu cere date prin SMS.</div>
+            </div>
+            <div class="fraud-card">
+                <div class="fraud-card-icon">&#x1F3C6;</div>
+                <div class="fraud-card-title">Câștiguri false / Фейковые призы</div>
+                <div class="fraud-card-desc">«Felicitări, ai câștigat!» — pentru a ridica premiul trebuie să plătești o taxă. Nu există niciun premiu.</div>
+            </div>
+            <div class="fraud-card">
+                <div class="fraud-card-icon">&#x1F46E;</div>
+                <div class="fraud-card-title">Impostori oficiali / Ложные госорганы</div>
+                <div class="fraud-card-desc">Cineva se prezintă ca polițist, FISC sau procuror și cere să transferi bani «pe un cont sigur».</div>
+            </div>
+            <div class="fraud-card">
+                <div class="fraud-card-icon">&#x1F4E6;</div>
+                <div class="fraud-card-title">Fraude livrări / Мошенничество доставки</div>
+                <div class="fraud-card-desc">«Coletul e reținut la vamă» — achitați o taxă mică prin link. Taxa nu există, cardul tău va fi debitat repetat.</div>
+            </div>
+            <div class="fraud-card">
+                <div class="fraud-card-icon">&#x1F4B8;</div>
+                <div class="fraud-card-title">Recovery scam / Повторный обман</div>
+                <div class="fraud-card-desc">«Ați fost înșelat — vă ajutăm să recuperați banii» — pretind că te ajută dar te înșală a doua oară.</div>
+            </div>
+            <div class="fraud-card">
+                <div class="fraud-card-icon">&#x1F6AB;</div>
+                <div class="fraud-card-title">Verbovanie / Вербовка и эксплуатация</div>
+                <div class="fraud-card-desc">Oferte de «muncă pentru fete» cu câștiguri mari. Pot ascunde trafic de persoane sau exploatare sexuală.</div>
+            </div>
+        </div>
+
+        <!-- Как защититься -->
+        <div class="protect-card">
+            <div class="section-title" style="margin-bottom:16px;">&#x1F6E1;&#xFE0F;&nbsp; Cum te protejezi cu Aegis.md / Как защититься</div>
+            <div class="protect-steps">
+                <div class="protect-step">
+                    <div class="step-num">1</div>
+                    <div class="step-text"><strong>Primești un SMS suspect?</strong> Copiază textul și lipește-l în câmpul de mai sus. Aegis.md îl analizează în 1-2 secunde.</div>
+                </div>
+                <div class="protect-step">
+                    <div class="step-num">2</div>
+                    <div class="step-text"><strong>Verdict PERICOL sau SUSPECT?</strong> Nu accesa niciun link, nu suna la numerele din mesaj și nu transfera bani. Nicio bancă sau instituție nu cere date prin SMS.</div>
+                </div>
+                <div class="protect-step">
+                    <div class="step-num">3</div>
+                    <div class="step-text"><strong>Avertizează-i pe cei dragi.</strong> Persoanele în vârstă sunt cele mai vulnerabile. Trimite-le acest link și explică-le cum să verifice SMS-urile.</div>
+                </div>
+                <div class="protect-step">
+                    <div class="step-num">4</div>
+                    <div class="step-text"><strong>Raportează frauda.</strong> Dacă ai primit un mesaj fraudulos, anunță Poliția Moldovei la <strong style="color:#a78bfa;">112</strong> sau prin aplicația <strong style="color:#a78bfa;">e-Poliție</strong>.</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Телефон доверия -->
+        <div class="hotline-card">
+            <div class="hotline-icon">&#x1F4DE;</div>
+            <div class="hotline-text">
+                <strong>112 &mdash; Poliția Republicii Moldova</strong>
+                Dacă ești victima unei fraude sau ai suspiciuni — sună imediat.
+                Raportează SMS-uri false și la operatorul tău mobil (Orange / Moldcell / Moldtelecom).
+            </div>
+        </div>
+
     </div>
 </main>
 
@@ -495,7 +694,7 @@
                     <div class="confidence-bar">
                         <div class="confidence-fill" style="width:${pct}%"></div>
                     </div>
-                    <div class="confidence-label">Încrederea modelului AI: <strong>${pct}%</strong></div>
+                    <div class="confidence-label">Încrederea verdictului / Уверенность вердикта: <strong>${pct}%</strong></div>
                     ${reasonsHTML}
                 </div>`;
         } catch (err) {
